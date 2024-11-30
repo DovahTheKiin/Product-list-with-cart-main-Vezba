@@ -20,7 +20,7 @@ body {
     background-color: var(--var-rose-50);
     position: relative;
     /* padding: 1.5rem; */
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 .container {
     width: 100%;
@@ -264,12 +264,13 @@ button {
     border-top-right-radius: 12px;
     background-color: #fff;
     width: 100%;
-    height: 87%;
+    height: 87vh;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: 10;
     padding: 2.5rem 1.5rem;
+    overflow:auto;
 }
 .order-confirmed-img {
     margin-bottom: 1.5rem;
@@ -287,7 +288,7 @@ button {
     margin-bottom: 2rem;
 }
 .order-info {
-    padding: 1.5rem;
+    /* padding: 1.5rem; */
     background-color: var(--var-rose-50);
     border-radius: 8px;
 }
@@ -300,8 +301,15 @@ button {
     border-bottom: 1px solid var(--var-rose-100);
 }
 .order-info-items {
+    max-height: 270px;
     margin-bottom: 1.5rem;
+    overflow: auto;
+    padding: 1.5rem;
+    padding-bottom: 0rem;
 }
+.order-info-items::-webkit-scrollbar {
+    /* display: none; */
+  }
 .order-item:first-of-type {
     padding-top: 0rem;
 }
@@ -348,6 +356,8 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1.5rem;
+    padding-top: 0rem;
 }
 .order-total-price-p {
     color: var(--var-rose-900);
