@@ -9,7 +9,6 @@ fetch("json/data.json")
     .then(function (desserts) {
     let out = "";
     array = desserts;
-    console.log(array)
     for (let dessert of desserts) {
         out += `
         <div class="card">
@@ -367,9 +366,11 @@ function mainScript() {
     let scoreDe;
     let intervalIn = null;
     let intervalDe = null;
+    let pressed = false;
 
     for(let i=0;i<incrementNumber.length;i++) {
             incrementNumber[i].addEventListener('mousedown', e => {
+                pressed = true;
                 if(e.button === 2) {
                     return;
                 } else { 
@@ -384,36 +385,43 @@ function mainScript() {
             });
         
             incrementNumber[i].addEventListener('mouseup', e => {
+                    pressed = false;
                     clearTimeout(intervalIn);
                     clearInterval(intervalIn);
             });
             incrementNumber[i].addEventListener('mouseleave', e => {
                     clearTimeout(intervalIn);
                     clearInterval(intervalIn);
+                    if(pressed === true) {
+                        incrementNumber[i].click();
+                        pressed = false;
+                    }
             });
 
-            incrementNumber[i].addEventListener('touchstart', e => {
-                if(e.button === 2) {
-                    return;
-                } else { 
-                    scoreIn = Number(ammount[i].innerText);
-                    intervalIn = setTimeout(function(){
-                        intervalIn = setInterval(() => {
-                        scoreIn++;
-                        ammount[i].innerText = scoreIn;
-                        }, 100);
-                    },500)
-                }
-            });
+            // incrementNumber[i].addEventListener('touchstart', e => {
+            //     pressed = true;
+            //     scoreIn = Number(ammount[i].innerText);
+            //     intervalIn = setTimeout(function(){
+            //         intervalIn = setInterval(() => {
+            //         scoreIn++;
+            //         ammount[i].innerText = scoreIn;
+            //         }, 100);
+            //     },500)
+            // });
         
-            incrementNumber[i].addEventListener('touchend', e => {
-                    clearTimeout(intervalIn);
-                    clearInterval(intervalIn);
-            });
+            // incrementNumber[i].addEventListener('touchend', e => {
+            //         clearTimeout(intervalIn);
+            //         clearInterval(intervalIn);
+            //         if(pressed === true) {
+            //             incrementNumber[i].click();
+            //             pressed = false;
+            //         }
+            // });
     }
 
     for(let i=0;i<decrementNumber.length;i++) {
             decrementNumber[i].addEventListener('mousedown', e => {
+                pressed = true;
                 if(e.button === 2) {
                     return;
                 } else {
@@ -436,40 +444,46 @@ function mainScript() {
             });
         
             decrementNumber[i].addEventListener('mouseup', e => {
+                pressed = false;
                 clearTimeout(intervalDe);
                 clearInterval(intervalDe);
             });
             decrementNumber[i].addEventListener('mouseleave', e => {
                 clearTimeout(intervalDe);
                 clearInterval(intervalDe);
-            });
-
-            decrementNumber[i].addEventListener('touchstart', e => {
-                if(e.button === 2) {
-                    return;
-                } else {
-                    scoreDe = Number(ammount[i].innerText);
-                    if(scoreDe < 1) {
-                        return;
-                    } else if(scoreDe > 1) {
-                        intervalDe = setTimeout(function(){
-                            intervalDe = setInterval(() => {
-                                if(scoreDe < 1) {
-                                    return;
-                                } else if(scoreDe > 1) {
-                                scoreDe--;
-                                ammount[i].innerText = scoreDe;
-                                }
-                            }, 100);
-                        },500)
-                    }
+                if(pressed === true) {
+                    incrementNumber[i].click();
+                    pressed = false;
                 }
             });
+
+            // decrementNumber[i].addEventListener('touchstart', e => {
+            //     pressed = true;
+            //     scoreDe = Number(ammount[i].innerText);
+            //     if(scoreDe < 1) {
+            //         return;
+            //     } else if(scoreDe > 1) {
+            //         intervalDe = setTimeout(function(){
+            //             intervalDe = setInterval(() => {
+            //                 if(scoreDe < 1) {
+            //                     return;
+            //                 } else if(scoreDe > 1) {
+            //                 scoreDe--;
+            //                 ammount[i].innerText = scoreDe;
+            //                 }
+            //             }, 100);
+            //         },500)
+            //     }
+            // });
         
-            decrementNumber[i].addEventListener('touchend', e => {
-                clearTimeout(intervalDe);
-                clearInterval(intervalDe);
-            });
+            // decrementNumber[i].addEventListener('touchend', e => {
+            //     clearTimeout(intervalDe);
+            //     clearInterval(intervalDe);
+            //     if(pressed === true) {
+            //         incrementNumber[i].click();
+            //         pressed = false;
+            //     }
+            // });
     }
 }
 
