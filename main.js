@@ -233,6 +233,7 @@ function mainScript() {
 
         for(let i=0;i<itemCartName.length;i++) {
             if(itemCartName[i].innerText === cardName.innerText) {
+                console.log(itemAmmountDecrement)
                 if(itemAmmountDecrement > 0) { 
                     itemAmmountSpan[i].innerText = itemAmmount;
                     totalCartItemPrice = Number(Number(itemAmmount)*Number(itemPrice)).toFixed(2);
@@ -393,35 +394,40 @@ function mainScript() {
                     clearTimeout(intervalIn);
                     clearInterval(intervalIn);
                     if(pressed === true) {
-                        incrementNumber[i].click();
+                        cardName = cardLongName[i];
+                        itemAmmount = scoreIn;
+                        incrementAmmount();
                         pressed = false;
                     }
             });
 
-            // incrementNumber[i].addEventListener('touchstart', e => {
-            //     pressed = true;
-            //     scoreIn = Number(ammount[i].innerText);
-            //     intervalIn = setTimeout(function(){
-            //         intervalIn = setInterval(() => {
-            //         scoreIn++;
-            //         ammount[i].innerText = scoreIn;
-            //         }, 100);
-            //     },500)
-            // });
+            incrementNumber[i].addEventListener('touchstart', e => {
+                pressed = true;
+                scoreIn = Number(ammount[i].innerText);
+                intervalIn = setTimeout(function(){
+                    intervalIn = setInterval(() => {
+                    scoreIn++;
+                    ammount[i].innerText = scoreIn;
+                    }, 100);
+                },500)
+            });
         
-            // incrementNumber[i].addEventListener('touchend', e => {
-            //         clearTimeout(intervalIn);
-            //         clearInterval(intervalIn);
-            //         if(pressed === true) {
-            //             incrementNumber[i].click();
-            //             pressed = false;
-            //         }
-            // });
+            incrementNumber[i].addEventListener('touchend', e => {
+                    clearTimeout(intervalIn);
+                    clearInterval(intervalIn);
+                    if(pressed === true) {
+                        cardName = cardLongName[i];
+                        itemAmmount = scoreIn;
+                        incrementAmmount();
+                        pressed = false;
+                    }
+            });
     }
 
     for(let i=0;i<decrementNumber.length;i++) {
             decrementNumber[i].addEventListener('mousedown', e => {
                 pressed = true;
+                console.log(pressed)
                 if(e.button === 2) {
                     return;
                 } else {
@@ -452,39 +458,43 @@ function mainScript() {
                 clearTimeout(intervalDe);
                 clearInterval(intervalDe);
                 if(pressed === true) {
-                    incrementNumber[i].click();
+                    cardName = cardLongName[i];
+                    itemAmmount = scoreDe;
+                    itemAmmountDecrement = itemAmmount;
+                    decrementAmmount();
                     pressed = false;
                 }
             });
 
-            // decrementNumber[i].addEventListener('touchstart', e => {
-            //     pressed = true;
-            //     scoreDe = Number(ammount[i].innerText);
-            //     if(scoreDe < 1) {
-            //         return;
-            //     } else if(scoreDe > 1) {
-            //         intervalDe = setTimeout(function(){
-            //             intervalDe = setInterval(() => {
-            //                 if(scoreDe < 1) {
-            //                     return;
-            //                 } else if(scoreDe > 1) {
-            //                 scoreDe--;
-            //                 ammount[i].innerText = scoreDe;
-            //                 }
-            //             }, 100);
-            //         },500)
-            //     }
-            // });
+            decrementNumber[i].addEventListener('touchstart', e => {
+                pressed = true;
+                scoreDe = Number(ammount[i].innerText);
+                if(scoreDe < 1) {
+                    return;
+                } else if(scoreDe > 1) {
+                    intervalDe = setTimeout(function(){
+                        intervalDe = setInterval(() => {
+                            if(scoreDe < 1) {
+                                return;
+                            } else if(scoreDe > 1) {
+                            scoreDe--;
+                            ammount[i].innerText = scoreDe;
+                            }
+                        }, 100);
+                    },500)
+                }
+            });
         
-            // decrementNumber[i].addEventListener('touchend', e => {
-            //     clearTimeout(intervalDe);
-            //     clearInterval(intervalDe);
-            //     if(pressed === true) {
-            //         incrementNumber[i].click();
-            //         pressed = false;
-            //     }
-            // });
+            decrementNumber[i].addEventListener('touchend', e => {
+                clearTimeout(intervalDe);
+                clearInterval(intervalDe);
+                if(pressed === true) {
+                    cardName = cardLongName[i];
+                    itemAmmount = scoreDe;
+                    itemAmmountDecrement = itemAmmount;
+                    decrementAmmount();
+                    pressed = false;
+                }
+            });
     }
 }
-
-//HOLD MB1 TO INCREMENT
